@@ -374,7 +374,8 @@ public class ServerConnector extends AbstractNetworkConnector
         ServerSocketChannel serverChannel = _acceptChannel;
         if (serverChannel != null && serverChannel.isOpen())
         {
-            SocketChannel channel = serverChannel.accept();
+            serverChannel.socket().setSoTimeout(Integer.MAX_VALUE);
+            SocketChannel channel = serverChannel.socket().accept().getChannel();
             accepted(channel);
         }
     }
